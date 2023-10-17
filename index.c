@@ -40,6 +40,41 @@ void bombSort(int n) {
     }
 }
 
+int validCoordinates(int l, int c) {
+    if(l >= 0 && l < tam && c >= 0 && c < tam) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int neighboringPumps(int l, int c) {
+    int amount = 0;
+
+    if(validCoordinates(l - 1, c) && jogo[l - 1][c].bomb) {
+        amount++;
+    }
+    if(validCoordinates(l + 1, c) && jogo[l + 1][c].bomb) {
+        amount++;
+    }
+    if(validCoordinates(l, 1 + c) && jogo[l][c + 1].bomb) {
+        amount++;
+    }
+    if(validCoordinates(l, 1 - c) && jogo[l][c - 1].bomb) {
+        amount++;
+    }
+
+    return amount;
+}
+
+void countBombs() {
+    for(l = 0; l < tam; l++) {
+        for(c = 0; c < tam; c++) {
+            jogo[l][c].neighbor = neighboringPumps(l, c);
+        }
+    }
+}
+
 int main() {
 
     initializeGame();
