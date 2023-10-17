@@ -57,10 +57,10 @@ int neighboringPumps(int l, int c) {
     if(validCoordinates(l + 1, c) && jogo[l + 1][c].bomb) {
         amount++;
     }
-    if(validCoordinates(l, 1 + c) && jogo[l][c + 1].bomb) {
+    if(validCoordinates(l, c + 1) && jogo[l][c + 1].bomb) {
         amount++;
     }
-    if(validCoordinates(l, 1 - c) && jogo[l][c - 1].bomb) {
+    if(validCoordinates(l, c - 1) && jogo[l][c - 1].bomb) {
         amount++;
     }
 
@@ -75,10 +75,36 @@ void countBombs() {
     }
 }
 
+void printGame() {
+    printf("\n\n\t   ");
+    for(l = 0; l < tam; l++) {
+        printf("% d ", l);
+    }
+    printf("\n\t  -------------------------------\n");
+    for(l = 0; l < tam; l++) {
+        printf("\t%d |", l);
+        for(c = 0; c < tam; c++) {
+            if(jogo[l][c].open) {
+                if(jogo[l][c].bomb) {
+                    printf(" * ");
+                } else {
+                    printf(" %d ", jogo[l][c].neighbor);
+                }
+            } else {
+                printf("  ");
+                printf("|");
+            }
+        } 
+        printf("\n\t  -------------------------------\n");
+    }
+}
+
 int main() {
 
     initializeGame();
     bombSort(20);
+    countBombs();
+    printGame();
 
     return 0;
 }
